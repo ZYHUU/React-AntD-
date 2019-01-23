@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Button>3232</Button>
+        <Button>323222</Button>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
