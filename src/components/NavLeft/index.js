@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu, Icon, Switch } from 'antd';
+import { Menu } from 'antd';
 import MeanConfig from '../../config/menuConfig';
 import './index.less';
 
