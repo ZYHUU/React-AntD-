@@ -9,6 +9,7 @@ class NavLeft extends Component{
     constructor(props) {
         super(props);
         this.renderMenu = this.renderMenu.bind(this);
+        this.handelClick = this.handelClick.bind(this);
     }
     componentWillMount() {
         const menuTreeNode = this.renderMenu(MeanConfig);
@@ -30,6 +31,9 @@ class NavLeft extends Component{
             return <Menu.Item title={item.title} key={item.key}>{item.title}</Menu.Item>
         })
     }
+    handelClick() {
+        console.log(this.state.menuTreeNode)
+    }
     render() {
         return (
             <div>
@@ -39,6 +43,7 @@ class NavLeft extends Component{
                 </div>
                 <Menu
                     theme="dark"
+                    onClick={this.handelClick}
                 >
                     {this.state.menuTreeNode}
                 </Menu>
