@@ -48,7 +48,7 @@ class Buttons extends Component{
                         <Button type="primary" icon="right">前进</Button>
                     </Button.Group>
                 </Card>
-                <Card title="按钮尺寸">
+                <Card title="按钮尺寸" className="card-warp">
                     <Radio.Group value={this.state.size} onChange={ this.handelChange.bind(this)}>
                         <Radio value="small">小</Radio>
                         <Radio value="default">中</Radio>
