@@ -10,7 +10,7 @@ import Loadings from './page/ui/loading'
 import Notice from './page/ui/notice'
 import Message from './page/ui/message'
 import Tabs from './page/ui/tabs';
-
+import Gallery from './page/ui/gallery';
 
 import NoMatch from './page/nomatch/index';
 class IRouter extends Component{
@@ -28,7 +28,7 @@ class IRouter extends Component{
                                 <Route path="/ui/loadings" component={Loadings}/>
                                 <Route path="/ui/notification" component={Notice}/>
                                 <Route path="/ui/tabs" component={Tabs}/>
-
+                                <Route path="/ui/gallery" component={Gallery}/>
 
                                 <Route path="/ui/messages" component={Message}/>
                                 <Route component={NoMatch}/>

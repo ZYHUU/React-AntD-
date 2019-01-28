@@ -3,6 +3,7 @@ import { Card, Tabs, message,  Icon } from 'antd';
 import './ui.less';
 const TabPane = Tabs.TabPane;
 class Tab extends Component{
+    newTabIndex = 0;
     callBack = (key) => {
         message.info("您选择了页签  " + key)
     }
@@ -10,6 +11,31 @@ class Tab extends Component{
         this.setState({
             activeKey
         })
+    }
+    onEdit = (targetKey, action) => {
+        this[action](targetKey);
+        console.log(1)
+    }
+    add = () => {
+        const panes = this.state.panes;
+        const activeKey = `newTab${this.newTabIndex++}`;
+        panes.push({ title: activeKey, content: 'New Tab Pane', key: activeKey });
+        this.setState({ panes, activeKey });
+    }
+    
+    remove = (targetKey) => {
+        let activeKey = this.state.activeKey;
+        let lastIndex;
+        this.state.panes.forEach((pane, i) => {
+            if (pane.key === targetKey) {
+            lastIndex = i - 1;
+            }
+        });
+        const panes = this.state.panes.filter(pane => pane.key !== targetKey);
+        if (lastIndex >= 0 && activeKey === targetKey) {
+            activeKey = panes[lastIndex].key;
+        }
+        this.setState({ panes, activeKey });
     }
     componentWillMount() {
         const panes = [
@@ -55,13 +81,15 @@ class Tab extends Component{
                     <Tabs 
                         activeKey={this.state.activeKey} 
                         type="editable-card"
-                        onChange={this.onChange}>
+                        onChange={this.onChange}
+                        onEdit={this.onEdit}
+                    >
                         {
                             this.state.panes.map((panel) => {
                                 return <TabPane
                                     tab={panel.title}
                                     key={panel.key}
-                                >{panel.content}</TabPane>
+                                />
                             })
                         }
                     </Tabs>
