@@ -12,6 +12,7 @@ import Message from './page/ui/message'
 import Tabs from './page/ui/tabs';
 import Gallery from './page/ui/gallery';
 import Carousels from './page/ui/carousel';
+import FormLogin from './page/form/login';
 
 import NoMatch from './page/nomatch/index';
 class IRouter extends Component{
@@ -31,7 +32,7 @@ class IRouter extends Component{
                                 <Route path="/ui/tabs" component={Tabs}/>
                                 <Route path="/ui/gallery" component={Gallery}/>
                                 <Route path="/ui/carousel" component={Carousels}/>
-
+                                <Route path="/form/login" component={FormLogin}/>
                                 <Route path="/ui/messages" component={Message}/>
                                 <Route component={NoMatch}/>
                             </Switch>
