@@ -28,7 +28,7 @@ class Gallery extends Component{
         const imgList = imgs.map((list) => list.map((item) => 
             <Card
                 style={{marginBottom:10}}
-                cover={<img src={'/gallery/' + item}/>}
+                cover={<img src={'/gallery/' + item} alt=""/>}
                 onClick={() => this.openGallery(item)}
             >
                 <Card.Meta 
@@ -56,7 +56,7 @@ class Gallery extends Component{
                     onCancel={this.handleCancel}
                     wrapClassName="vertical-center-modal"
                 >
-                    {<img src={this.state.currentImg} style={{width:'100%'}}/>}
+                    {<img src={this.state.currentImg} style={{width:'100%'}} alt=""/>}
                 </Modal>
             </div>
         )

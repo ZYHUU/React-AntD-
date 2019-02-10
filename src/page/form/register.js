@@ -194,7 +194,7 @@ class FormRegister extends Component{
                                         showUploadList={false}
                                         action="//jsonplaceholder.typicode.com/posts/"
                                     >
-                                    {this.state.userImg?<img src={this.state.userImg}/>:<Icon type="plus"/>}
+                                    {this.state.userImg?<img src={this.state.userImg} alt=""/>:<Icon type="plus"/>}
                                     </Upload>
                                 )
                             }                          
