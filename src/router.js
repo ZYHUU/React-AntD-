@@ -14,7 +14,7 @@ import Gallery from './page/ui/gallery';
 import Carousels from './page/ui/carousel';
 import FormLogin from './page/form/login';
 import FormRegister from './page/form/register';
-
+import BasicTable from './page/table/basicTable';
 
 import NoMatch from './page/nomatch/index';
 class IRouter extends Component{
@@ -37,6 +37,7 @@ class IRouter extends Component{
                                 <Route path="/ui/messages" component={Message}/>
                                 <Route path="/form/login" component={FormLogin}/>
                                 <Route path="/form/reg" component={FormRegister}/>
+                                <Route path="/table/basic" component={BasicTable}/>
                                 <Route component={NoMatch}/>
                             </Switch>
                         </Admin>
