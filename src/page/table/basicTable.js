@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import { Card, Table, Modal } from 'antd';
+import { Card, Table, Modal, Button, Message } from 'antd';
 import axios from './../../axios/index';
+import Utils from '../../utils/utils';
 class BasicTable extends Component{
     state ={
         dataSource2: []
+    }
+    params = {
+        page: 1
     }
     componentDidMount(){
         this.request()
@@ -25,20 +29,10 @@ class BasicTable extends Component{
                 hoby: '1',
                 time: '2019-02-10' ,
                 address: '广东省深圳市南山区 '       
-            },
-            {
-                id: '2',
-                userName: 'rose', 
-                sex: '1',
-                state: '1',
-                hoby: '1',
-                time: '2019-02-10' ,
-                address: '广东省深圳市南山区 '       
-            }   
+            }  
         ]
         dataSource.map((item,index) => {
-            item.key = index;
-            return item
+            return item.key = index;
         })
         this.setState({
             dataSource
@@ -46,11 +40,12 @@ class BasicTable extends Component{
     }
     // 动态获取mock数据
     request = () => {
+        let _this = this;
         axios.ajax({
             url: '/table/list',
             data: {
                 params: {
-                    page: 1,
+                    page: this.params.page,
                     isShowLoading: true
                 }
             }
@@ -61,7 +56,13 @@ class BasicTable extends Component{
                     return item;
                 })
                 this.setState({
-                    dataSource2: res.result.list
+                    dataSource2: res.result.list,
+                    selectedRowKeys: [],
+                    selectedRows: null, 
+                    pagination: Utils.pagination(res, (current) => {
+                        _this.params.page = current;
+                        this.request();
+                    })
                 })
             }
         })
@@ -76,6 +77,22 @@ class BasicTable extends Component{
         this.setState({
             selectedRowKeys: selectKey,
             selectedItem: record
+        })
+    }
+    // 多选执行删除操作
+    handelDelete = () => {
+        let rows = this.state.selectedRows;
+        let ids = [];
+        rows.map((item) => {
+            return ids.push(item.id)
+        })
+        Modal.confirm({
+            title: '删除提示',
+            content: `您确定删除这些数据吗？${ids.join(',')}`,
+            onOk: () => {
+                Message.success('删除成功');
+                this.request();
+            }
         })
     }
     render() {
@@ -140,6 +157,16 @@ class BasicTable extends Component{
             type: 'radio',
             selectedRowKeys
         }
+        const rowCheckSelection = {
+            type: 'checkbox',
+            selectedRowKeys,
+            onChange: (selectedRowKeys, selectedRows) => {
+                this.setState({
+                    selectedRowKeys,
+                    selectedRows
+                })
+            }
+        }
         return(
             <div>
                 <Card title="基础表格">
@@ -158,7 +185,7 @@ class BasicTable extends Component{
                         pagination={false}
                     />
                 </Card>
-                <Card title="Mock-单选">
+                <Card title="Mock-表格单选">
                     <Table
                         bordered
                         rowSelection = {rowSelection}
@@ -176,6 +203,26 @@ class BasicTable extends Component{
                         columns={columns}
                         dataSource={this.state.dataSource2}  
                         pagination={false}
+                    />
+                </Card>
+                <Card title="Mock-表格复选">
+                    <div>
+                        <Button type="danger" onClick={this.handelDelete}>删除</Button>
+                    </div>
+                    <Table
+                        bordered
+                        rowSelection = {rowCheckSelection}
+                        columns={columns}
+                        dataSource={this.state.dataSource2}  
+                        pagination={false}
+                    />
+                </Card>
+                <Card title="Mock-表格分页">
+                    <Table
+                        bordered
+                        columns={columns}
+                        dataSource={this.state.dataSource2}  
+                        pagination={this.state.pagination}
                     />
                 </Card>
             </div>
