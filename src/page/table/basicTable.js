@@ -46,7 +46,8 @@ class BasicTable extends Component{
             url: '/table/list',
             data: {
                 params: {
-                    page: 1
+                    page: 1,
+                    isShowLoading: true
                 }
             }
         }).then((res) => {
@@ -69,15 +70,41 @@ class BasicTable extends Component{
             },
             {
                 title: '性别',
-                dataIndex: 'sex'
+                dataIndex: 'sex',
+                render(sex) {
+                    return sex === 1 ? '男' : '女'
+                }
             },
             {
                 title: '状态',
-                dataIndex: 'state'
+                dataIndex: 'state',
+                render(state) {
+                    let config = {
+                        '1': '咸鱼一条',
+                        '2': '百度FE',
+                        '3': '前端工程师',
+                        '4': '螃蟹',
+                        '5': '火腿面'
+                    }
+                    return config[state];
+                }
             },
             {
                 title: '爱好',
-                dataIndex: 'hoby'
+                dataIndex: 'hoby',
+                render(hoby) {
+                    let config = {
+                        '1': '打游戏',
+                        '2': '吃饭',
+                        '3': '游泳',
+                        '4': '泡澡',
+                        '5': '按摩',
+                        '6': '撩妹',
+                        '7': '学习',
+                        '8': '发呆'
+                    }
+                    return config[hoby];
+                }
             },
             {
                 title: '时间',
