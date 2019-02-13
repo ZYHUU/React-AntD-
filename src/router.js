@@ -16,6 +16,7 @@ import FormLogin from './page/form/login';
 import FormRegister from './page/form/register';
 import BasicTable from './page/table/basicTable';
 import HightTable from './page/table/highTable';
+import City from './page/city'
 
 import NoMatch from './page/nomatch/index';
 class IRouter extends Component{
@@ -39,7 +40,8 @@ class IRouter extends Component{
                                 <Route path="/form/login" component={FormLogin}/>
                                 <Route path="/form/reg" component={FormRegister}/>
                                 <Route path="/table/basic" component={BasicTable} />
-                                <Route path="/table/high" component={HightTable}/>
+                                <Route path="/table/high" component={HightTable} />
+                                <Route path="/city" component={City}/>
                                 <Route component={NoMatch}/>
                             </Switch>
                         </Admin>
