@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Card, Button, Table, Form, Select, Modal, message } from 'antd';
 import axios from './../../axios/index';
 import Utils from './../../utils/utils';
@@ -51,7 +51,6 @@ export default class City extends React.Component{
     }
     // 城市开通提交
     handleSubmit = () => {
-        alert(1)
         let cityInfo = this.cityForm.props.form.getFieldsValue();
         console.log(cityInfo);
         axios.ajax({
@@ -60,7 +59,7 @@ export default class City extends React.Component{
                 params:cityInfo
             }
         }).then((res)=>{
-            if (res.code === '0') {
+            if (res.code === 0) {
                 message.success('开通成功');
                 this.setState({
                     isShowOpenCity:false
@@ -145,7 +144,7 @@ export default class City extends React.Component{
     }
 }
 
-class FilterForm extends React.Component{
+class FilterForm extends Component{
 
     render(){
         const { getFieldDecorator } = this.props.form;
