@@ -17,6 +17,7 @@ import FormRegister from './page/form/register';
 import BasicTable from './page/table/basicTable';
 import HightTable from './page/table/highTable';
 import City from './page/city'
+import Order from './page/order'
 
 import NoMatch from './page/nomatch/index';
 class IRouter extends Component{
@@ -41,7 +42,8 @@ class IRouter extends Component{
                                 <Route path="/form/reg" component={FormRegister}/>
                                 <Route path="/table/basic" component={BasicTable} />
                                 <Route path="/table/high" component={HightTable} />
-                                <Route path="/city" component={City}/>
+                                <Route path="/city" component={City} />
+                                <Route path="/order" component={Order}/>                                
                                 <Route component={NoMatch}/>
                             </Switch>
                         </Admin>
