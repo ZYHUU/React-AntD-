@@ -19,6 +19,8 @@ import HightTable from './page/table/highTable';
 import City from './page/city'
 import Order from './page/order'
 
+import Common from './common'
+
 import NoMatch from './page/nomatch/index';
 class IRouter extends Component{
     render() {
@@ -47,8 +49,14 @@ class IRouter extends Component{
                                 <Route component={NoMatch}/>
                             </Switch>
                         </Admin>
-                
+                        
+                    } />
+                    <Route path="/common" render={() => 
+                        <Common>
+                            <Route path="/common/order/detail:orderId" component={Common}/>
+                        </Common>
                     }/>
+                    
                 </App>
             
             </HashRouter>

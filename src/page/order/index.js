@@ -43,6 +43,26 @@ export default class order extends Component{
         })
     }
 
+    openOrderDeatil = () => {
+        let item = this.state.selectedItem;
+        if(!item) {
+            Modal.info({
+                title: '信息',
+                content: '请选择订单'
+            });
+            return
+        }
+        window.open(`/#/common/order/detail/${item[0].id}`, '_blank');
+    }
+    onRowClick = (record, index) => {
+        let selectKey = [index];
+        console.log(selectKey,record)
+        this.setState({
+            selectedRowKeys: selectKey,
+            selectedItem: record
+        })
+    }
+ 
     render() {
         const columns = [
             {
@@ -93,21 +113,41 @@ export default class order extends Component{
                 dataIndex: "user_pay"
             }
         ]
+        const selectedRowKeys = this.state.selectedRowKeys;
+        const rowCheckSelection = {
+            type: 'checkbox',
+            selectedRowKeys,
+            onChange: (selectedRowKeys, selectedRows) => {
+                console.log(selectedRowKeys,selectedRows)
+                this.setState({
+                    selectedRowKeys,
+                    selectedItem: selectedRows
+                })
+            }
+        }
         return (
             <div>
                 <Card>
                     <FilterForm/>
                 </Card>  
                 <Card style={{marginTop:10}}>
-                    <Button>订单详情</Button>
+                    <Button onClick={this.openOrderDeatil}>订单详情</Button>
                     <Button>结束订单</Button>
                 </Card>
                 <div className="content-wrap">
                     <Table
                         bordered
-                        columns = {columns}
+                        columns={columns}
+                        rowSelection={rowCheckSelection}
                         dataSource = {this.state.list}
-                        pagination = {this.state.pagination}
+                        pagination={this.state.pagination}
+                        onRow={(record, index) => {
+                            return {
+                                onClick: () => {
+                                    this.onRowClick(record, index);
+                                }
+                            };
+                        }}
                     />
                 </div>
             </div>
