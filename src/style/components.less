@@ -1,5 +1,13 @@
 @import './default.less';
 @import './loading.less';
+.clearfix{
+    &::after{
+        content: '';
+        clear: both;
+        display: block;
+        visibility: hidden;
+    }
+}
 .container{
     display: flex;
     .nav-left{
