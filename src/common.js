@@ -6,18 +6,16 @@ import './style/components.less';
 
 export default class Common extends React.Component {
     render() {
-        return (
-            <div>
-                <Row className="simple-page">
-                    <Header menuType="second"/>
-                </Row>
-                <Row className="content">
-                    qqq
-                {console.log(this.props.children)}
-                    {this.props.children}
-                </Row>
-            </div>
-           
-        )
+			return (
+				<div>
+					<Row className="simple-page">
+						<Header menuType="second"/>
+					</Row>
+					<Row className="content">
+					{console.log(this.props,'++++')}
+						{this.props.children}
+					</Row>
+				</div>         
+			)
     }
 } 

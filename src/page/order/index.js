@@ -52,6 +52,7 @@ export default class order extends Component{
             });
             return
         }
+        // this.props.history.push(`common/order/detail/1`)
         window.open(`/#/common/order/detail/${item[0].id}`, '_blank');
     }
     onRowClick = (record, index) => {
