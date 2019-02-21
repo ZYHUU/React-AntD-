@@ -33,7 +33,7 @@ class IRouter extends Component{
                         <Route path="/common" render={() => 
                             <Common>
                                 <Switch>
-                                    <Route path="/common/order/detail:orderId" component={Login}/>
+                                    <Route path="/common/order/detail/:orderId" component={Orderdetail}/>
                                 </Switch>                               
                             </Common>
                         }
