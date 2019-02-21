@@ -45,6 +45,7 @@ export default class order extends Component{
 
     openOrderDeatil = () => {
         let item = this.state.selectedItem;
+        console.log(item)
         if(!item) {
             Modal.info({
                 title: '信息',

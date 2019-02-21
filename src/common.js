@@ -1,10 +1,10 @@
-import React from 'react';
-import { Row } from 'antd';
+import React, { Component } from 'react';
+import { Row, Col } from 'antd';
 import Header from './components/Header';
 import './style/components.less';
 
 
-export default class Common extends React.Component {
+export default class Common extends Component {
     render() {
         return (
             <div>
@@ -12,10 +12,8 @@ export default class Common extends React.Component {
                     <Header menuType="second"/>
                 </Row>
                 <Row className="content">
-                    qqq
-                {console.log(this.props.children)}
                     {this.props.children}
-                </Row>
+                </Row>    
             </div>
            
         )
