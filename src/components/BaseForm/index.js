@@ -38,6 +38,17 @@ class FilterForm extends Component {
                     }
                     </FormItem>
                     formItemList.push(INPUT)
+                } else if (item.type === "DATE") {
+                    const Date = <FormItem label={label} key={filed}>
+                    {
+                        getFieldDecorator([filed], {
+                            initialValue: initialValue
+                        })(
+                            <DatePicker placeholder = {placeholder}/>
+                        )
+                    }
+                    </FormItem>
+                    formItemList.push(Date)
                 } else if (item.type === "时间查询") {
                     const begin_time = <FormItem label='订单时间' key={filed}>
                     {

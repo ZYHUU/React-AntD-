@@ -16,8 +16,9 @@ import FormLogin from './page/form/login';
 import FormRegister from './page/form/register';
 import BasicTable from './page/table/basicTable';
 import HightTable from './page/table/highTable';
-import City from './page/city'
-import Order from './page/order'
+import City from './page/city';
+import Order from './page/order';
+import User from './page/user';
 
 import Common from './common'
 import Orderdetail from './page/order/detail.js'
@@ -55,7 +56,8 @@ class IRouter extends Component{
                                     <Route path="/table/basic" component={BasicTable} />
                                     <Route path="/table/high" component={HightTable} />
                                     <Route path="/city" component={City} />
-                                    <Route path="/order" component={Order}/>                                
+                                    <Route path="/order" component={Order}/>   
+                                    <Route path="/user" component={User}/>                              
                                     <Route component={NoMatch}/>
                                 </Switch>
                             </Admin>
