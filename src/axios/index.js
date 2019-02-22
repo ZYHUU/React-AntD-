@@ -49,6 +49,10 @@ export default class Axios{
                 } else {
                     reject(response.data)
                 }
+            }).catch((err) => {
+                loading = document.getElementById('ajaxLoading');
+                loading.style.display = 'none';
+                console.log(err)
             })
         })
     }
