@@ -12,6 +12,7 @@ export default class ETable extends React.Component {
             let selectedRowKeys = this.props.selectedRowKeys;
             let selectedIds = this.props.selectedIds;
             let selectedItem = this.props.selectedItem || [];
+            console.log(selectedItem,'++')
             if (selectedIds) {
                 const i = selectedIds.indexOf(record.id);
                 if (i == -1) {//避免重复添加
@@ -124,7 +125,7 @@ export default class ETable extends React.Component {
             //默认未单选
             row_selection = 'radio';
         }
-        return <Table 
+        return <Table onRowClick
                 className="card-wrap page-table"
                 bordered 
                 {...this.props}

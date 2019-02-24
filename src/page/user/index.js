@@ -4,6 +4,7 @@ import axios from '../../axios';
 import Utils from '../../utils/utils';
 import BaseForm from '../../components/BaseForm';
 import ETable from '../../components/ETable';
+import moment from 'moment'
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -52,13 +53,82 @@ export default class User extends Component {
 
     // 操作区 增，删，改，查
     handleOperate = (type) => {
+        let item = this.state.selectedItem;
+        console.log(item)
         if (type === 'create') {
             this.setState({
                 type,
                 isVisible: true,
-
+                userInfo: {}
+            })
+        } else if (type === 'edit') {
+            if (!item) {
+                Modal.info({
+                    title: '提示',
+                    content: '请选择用户'
+                })
+                return;
+            }
+            this.setState({
+                type,
+                isVisible: true,
+                title: '编辑员工',
+                userInfo: item
+            })
+        } else if (type === 'detail') {
+            if (!item) {
+                Modal.info({
+                    title: '提示',
+                    content: '请选择用户'
+                })
+                return;
+            }
+            this.setState({
+                type,
+                isVisible: true,
+                title: '员工详情',
+                userInfo: item
+            })
+        } else {
+            if (!item) {
+                Modal.info({
+                    title: '提示',
+                    content: '请选择用户'
+                })
+                return;
+            }
+            let _this = this;
+            Modal.confirm({
+                title: '确认删除',
+                content: '是否要删除该员工',
+                onOk() {
+                    axios.ajax({
+                        url: '/user/delete',
+                        data: {
+                            params: {
+                                id: item.id
+                            }
+                        }
+                    }).then((res) => {
+                        if (res.code === 0) {
+                            _this.setState({
+                                isVisible: false
+                            })
+                            _this.requestList()
+                        }
+                    })
+                }
             })
         }
+    }
+
+    // 选择表格某条数据
+    onRowClick = (record,index) => {
+        let selectKey = [index];
+        this.setState({
+            selectedRowKeys: selectKey,
+            selectedItem: record
+        })
     }
 
     // 创建员工提交
@@ -67,7 +137,7 @@ export default class User extends Component {
         // antd 收集表单数据
         let data = this.UserForm.props.form.getFieldsValue();
         axios.ajax({
-            url: '/user/add',
+            url: type=='create'? '/user/add' : 'user/edit',
             data: {
                 params: data
             }
@@ -83,6 +153,7 @@ export default class User extends Component {
         })
     }
     render() {
+        const { selectedRowKeys } = this.state;
         const columns = [
             {
                 title: "id",
@@ -143,7 +214,17 @@ export default class User extends Component {
                 dataIndex: "time"
             },
         ]
-        return(
+        const rowSelection = {
+            type: 'radio',
+            selectedRowKeys
+        }
+        let footer = {};
+        if (this.state.type === 'detail') {
+            footer = {
+                footer: null
+            }
+        }
+        return (
             <div>
                 <Card>
                     <BaseForm formList={this.formList} filterSubmit={this.handelFilter}/>
@@ -155,12 +236,28 @@ export default class User extends Component {
                     <Button icon="delete" onClick={() =>this.handleOperate('delete')}>删除员工</Button>
                 </Card>
                 <div className="content-wrap">
-                    <ETable
+                    {/*<ETable
                         columns={columns}
                         updateSelectedItem={Utils.updateSelectedItem.bind(this)}
                         selectedRowKeys={this.state.selectedRowKeys}
                         dataSource={this.state.list}
                         pagination={this.state.pagination}
+                        selectedItem={this.state.selectedItem}
+                        rowSelection="radio"
+                    />*/}
+                    <Table
+                        bordered
+                        rowSelection = {rowSelection}
+                        onRow={(record,index) => {
+                            return {
+                              onClick: () => {
+                                  this.onRowClick(record,index)
+                              }
+                            };
+                          }}
+                        columns={columns}
+                        dataSource={this.state.list}  
+                        pagination={false}
                     />
                 </div>
                 <Modal
@@ -174,8 +271,9 @@ export default class User extends Component {
                         })
                     }}
                     width={600}
+                    {...footer}
                 >
-                    <UserForm type={this.state.type} wrappedComponentRef={(inst) => { this.UserForm = inst }}></UserForm>
+                    <UserForm type={this.state.type} userInfo={this.state.userInfo} wrappedComponentRef={(inst) => { this.UserForm = inst }}></UserForm>
                 </Modal>    
             </div>
         ) 
@@ -183,7 +281,19 @@ export default class User extends Component {
 }
 
 class UserForm extends Component{
+
+    getState = (state) => {
+        return {
+            '1': '咸鱼一条',
+            '2': '百度FE',
+            '3': '前端工程师',
+            '4': '螃蟹',
+            '5': '火腿面'
+        }[state]
+    }
     render() {
+        let type = this.props.type || {};
+        let userInfo = this.props.userInfo;
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
             labelCol: {span: 5},
@@ -192,8 +302,11 @@ class UserForm extends Component{
         return (
             <Form layout="horizontal">
                 <FormItem label="用户名" {...formItemLayout}>
-                    {
-                        getFieldDecorator('user_name')(
+                    {   
+                        type === 'detail' ? userInfo.username :
+                        getFieldDecorator('username', {
+                            initialValue: userInfo.username
+                        })(
                             <Input type="text" placeholder="请输入用户名" />
                         )
                         
@@ -201,7 +314,10 @@ class UserForm extends Component{
                 </FormItem>
                 <FormItem label="性别" {...formItemLayout}>
                     {
-                        getFieldDecorator('sex')(
+                        type === 'detail' ? (userInfo.sex === 1 ? '男' : '女') :
+                        getFieldDecorator('sex', {
+                            initialValue: userInfo.sex
+                        })(
                             <RadioGroup>
                                 <Radio value={1}>男</Radio>
                                 <Radio value={2}>女</Radio>
@@ -210,8 +326,11 @@ class UserForm extends Component{
                     }
                 </FormItem>
                 <FormItem label="状态" {...formItemLayout}>
-                    {
-                        getFieldDecorator('state')(
+                    { 
+                        type === 'detail' ? this.getState(userInfo.state) :
+                        getFieldDecorator('state', {
+                            initialValue: userInfo.state
+                        })(
                             <Select>
                                 <Option value={1}>咸鱼一条</Option>
                                 <Option value={2}>百度FE</Option>
@@ -224,14 +343,20 @@ class UserForm extends Component{
                 </FormItem>
                 <FormItem label="生日" {...formItemLayout}>
                     {
-                        getFieldDecorator('birthday')(
+                        type === 'detail' ? userInfo.birthday :
+                        getFieldDecorator('birthday', {
+                            initialValue: moment(userInfo.birthday)
+                        })(
                             <DatePicker/>
                         )                      
                     }
                 </FormItem>
                 <FormItem label="地址" {...formItemLayout}>
                     {
-                        getFieldDecorator('address')(
+                        type === 'detail' ? userInfo.address :
+                        getFieldDecorator('address', {
+                            initialValue: userInfo.address
+                        })(
                             <TextArea rows={3} placeholder="请输入联系地址"></TextArea>
                         )                      
                     }
