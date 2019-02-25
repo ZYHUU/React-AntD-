@@ -49,6 +49,7 @@ export default class BikeMap extends Component {
 
     // 渲染地图
     renderMap = (res) => {
+        // 绘制地图起点终点
         let list = res.result.route_list;
         this.map = new window.BMap.Map('container');
         let gps1 = list[0].split(',');
@@ -56,7 +57,6 @@ export default class BikeMap extends Component {
         let gps2 = list[list.length - 1].split(',');
         let endPoint = new window.BMap.Point(gps2[0], gps2[1]);
         this.map.centerAndZoom(endPoint, 11);
-
         let startPointIcon = new window.BMap.Icon('/assets/start_point.png', new window.BMap.Size(36, 42), {
             imageSize: new window.BMap.Size(36, 42),
             anchor: new window.BMap.Size(18,42)
