@@ -60,6 +60,22 @@ class FilterForm extends Component {
                     }
                     </FormItem>
                     formItemList.push(begin_time)
+                } else if (item.type === "城市") {
+                    const City = <FormItem label='城市' key={filed}>
+                    {   
+                        getFieldDecorator('city',{
+                            initialValue: '0'
+                        })(
+                            <Select
+                                style={{width: 80}}
+                                placeholder={placeholder}
+                            >
+                            { utils.getOptionList([{id:'0',name:'全部'},{id:'1',name:'上海'},{id:'2',name:'广州'},{id:'3',name:'深圳'},{id:'4',name:'杭州'},]) }
+                            </Select>
+                        )
+                    }
+                    </FormItem>
+                    formItemList.push(City)
                 } else if (item.type === 'SELECT') {
                     const SELECT = <FormItem label={label} key={filed}>
                     {   
