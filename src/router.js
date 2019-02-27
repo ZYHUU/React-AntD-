@@ -24,6 +24,7 @@ import Common from './common'
 import Orderdetail from './page/order/detail.js'
 import BikeMap from './page/map/bikeMap.js'
 import Bar from './page/echarts/bar/index'
+import Pie from './page/echarts/pie/index'
 
 import NoMatch from './page/nomatch/index';
 class IRouter extends Component{
@@ -61,7 +62,8 @@ class IRouter extends Component{
                                     <Route path="/order" component={Order}/>   
                                     <Route path="/user" component={User}/>     
                                     <Route path="/bikeMap" component={BikeMap} />              
-                                    <Route path="/charts/bar" component={Bar}/>                                                       
+                                    <Route path="/charts/bar" component={Bar} />  
+                                    <Route path="/charts/pie" component={Pie}/>
                                     <Route component={NoMatch}/>
                                 </Switch>
                             </Admin>
