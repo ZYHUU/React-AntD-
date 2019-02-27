@@ -23,6 +23,7 @@ import User from './page/user';
 import Common from './common'
 import Orderdetail from './page/order/detail.js'
 import BikeMap from './page/map/bikeMap.js'
+import Bar from './page/echarts/bar/index'
 
 import NoMatch from './page/nomatch/index';
 class IRouter extends Component{
@@ -59,7 +60,8 @@ class IRouter extends Component{
                                     <Route path="/city" component={City} />
                                     <Route path="/order" component={Order}/>   
                                     <Route path="/user" component={User}/>     
-                                    <Route path="/bikeMap" component={BikeMap}/>                                                       
+                                    <Route path="/bikeMap" component={BikeMap} />              
+                                    <Route path="/charts/bar" component={Bar}/>                                                       
                                     <Route component={NoMatch}/>
                                 </Switch>
                             </Admin>
