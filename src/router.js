@@ -27,6 +27,7 @@ import Bar from './page/echarts/bar/index'
 import Pie from './page/echarts/pie/index'
 import Line from './page/echarts/line/index'
 import Rich from './page/rich'
+import Permission from './page/permission'
 
 import NoMatch from './page/nomatch/index';
 class IRouter extends Component{
@@ -67,7 +68,8 @@ class IRouter extends Component{
                                     <Route path="/charts/bar" component={Bar} />  
                                     <Route path="/charts/pie" component={Pie}/>
                                     <Route path="/charts/line" component={Line}/>
-                                    <Route path="/rich" component={Rich}/>
+                                    <Route path="/rich" component={Rich} />
+                                    <Route path="/permission" component={Permission}/>
                                     <Route component={NoMatch}/>
                                 </Switch>
                             </Admin>
