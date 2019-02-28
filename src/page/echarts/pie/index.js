@@ -5,7 +5,7 @@ import echartTheme from './../themeLight';
 // 按需加载
 import echarts from 'echarts/lib/echarts';
 // 导入饼形图
-import 'echarts/lib/chart/bar';
+import 'echarts/lib/chart/pie';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';

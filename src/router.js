@@ -25,6 +25,8 @@ import Orderdetail from './page/order/detail.js'
 import BikeMap from './page/map/bikeMap.js'
 import Bar from './page/echarts/bar/index'
 import Pie from './page/echarts/pie/index'
+import Line from './page/echarts/line/index'
+import Rich from './page/rich'
 
 import NoMatch from './page/nomatch/index';
 class IRouter extends Component{
@@ -64,6 +66,8 @@ class IRouter extends Component{
                                     <Route path="/bikeMap" component={BikeMap} />              
                                     <Route path="/charts/bar" component={Bar} />  
                                     <Route path="/charts/pie" component={Pie}/>
+                                    <Route path="/charts/line" component={Line}/>
+                                    <Route path="/rich" component={Rich}/>
                                     <Route component={NoMatch}/>
                                 </Switch>
                             </Admin>
