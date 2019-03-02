@@ -21,7 +21,7 @@ class Header extends Component{
                 sysTime
             })
         }, 1000)
-        this.getWeatherAPIData();
+        // this.getWeatherAPIData();
     }
 
     getWeatherAPIData() {
@@ -29,6 +29,7 @@ class Header extends Component{
         axios.jsonp({
             url:'http://api.map.baidu.com/telematics/v3/weather?location='+encodeURIComponent(city)+'&output=json&ak=3p49MVra6urFRGOT9s8UBWr2'
         }).then((res) => {
+            console.log(res)
             if (res.status === 'success') {
                 let data = res.results[0].weather_data[0];
                 this.setState({
